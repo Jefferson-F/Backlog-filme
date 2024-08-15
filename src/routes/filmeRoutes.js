@@ -11,3 +11,5 @@ router.get('/', (req, res) => {
     }
 
 } );//Callback function, caso algo aconteça, executa a função
+
+export default router;
