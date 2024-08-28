@@ -21,10 +21,16 @@ router.post('/', (req, res) => {
 
     }}
 
+);
 
 
-
-
-)
+router.get('/:id', (req, res) =>{//Pegando o parametro da rota
+    try{
+        const id = req.params.id;//Acessa o parametro da rota
+        filme.BuscarFilme(req, res, id);
+    }catch(err){
+        res.status(500).json({erro: err.message});
+    }
+});
 
 export default router;
