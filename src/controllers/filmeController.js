@@ -26,7 +26,11 @@ export default class Filmes{
     async BuscarFilme(req, res, id){
         try{
             const filme = await filmeModel.findOne({where: {id: id}});
-            res.json(filme);
+            if(!filme){
+                return res.status(404).json({erro: ""});//Return para evitar que em caso de bug de fluxo o código tente mandar duas
+                //respostas para o servidor e acabe o derrubando.
+            } 
+            return res.json(filme);
         }catch(err){
             res.status(500).json({erro: err.message});
         }
