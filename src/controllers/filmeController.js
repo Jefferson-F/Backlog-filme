@@ -36,4 +36,33 @@ export default class Filmes{
         }
     }
 
+    async AtualizarFilme(req,res){
+        try{
+            const [atualizado] = await filmeModel.update(req.body, {where: {"id": req.params.id}});
+            if(!atualizado){
+                return res.status(404).json({erro:"Filme não encontrado"});
+            }
+            const filmeAtualizado = await filmeModel.findOne({where: {"id": req.params.id}});
+            return res.json({message:"Filme atualizado com sucesso", filme: filmeAtualizado});
+        }
+        catch(err){
+            res.status(500).json({erro: err.message});
+        }
+
+    }
+
+    async DeletarFilme(req, res){
+        try{
+            const filme = await filmeModel.destroy({
+                where:{"id": req.params.id}
+            });
+            if(!filme){
+                return res.status(404).json({erro: "Filme não encontrado"});
+            }
+            return res.status(204).json({message: "Filme deletado com sucesso", filme: filme});
+        }catch(err){
+            res.status(500).json({erro: err.message});
+        }
+    }
+
 }
