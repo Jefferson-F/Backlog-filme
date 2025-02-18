@@ -33,6 +33,14 @@ router.get('/:id', (req, res) =>{//Pegando o parametro da rota
     }
 });
 
+router.get('/buscartitulo/:nome', (req, res) => {
+    try{
+        filme.BuscarFilmeNome(req, res);
+    }catch(err){
+        res.status(500).json({erro: err.message});
+    }
+})
+
 router.put("/:id", (req, res) =>{
     try{
         filme.AtualizarFilme(req, res);

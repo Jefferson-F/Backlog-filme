@@ -64,5 +64,15 @@ export default class Filmes{
             res.status(500).json({erro: err.message});
         }
     }
-
+    async BuscarFilmeNome(req, res){
+        try{
+            const filme = await filmeModel.findOne({attributes: ['genero', 'ano'], where:{"titulo": req.params.nome}});
+            if(!filme){
+                return res.status(404).json({erro:"Filme não encontrado, larga de ser burro"});
+            }
+            return res.json(filme);
+        }catch(err){
+            res.status(500).json({erro: err.message})
+        }
+    }
 }
